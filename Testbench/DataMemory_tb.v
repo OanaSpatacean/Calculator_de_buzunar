@@ -3,8 +3,8 @@ module DataMemory_tb;
     reg RST;
     reg EN;
     reg [8:0] ADDR;
-    reg signed [15:0] in;
-    wire signed [15:0] out;
+    reg signed [15:0] IN;
+    wire signed [15:0] OUT;
 
    //Unit Under Test
     DataMemory uut (
@@ -12,8 +12,8 @@ module DataMemory_tb;
         .RST(RST), 
         .EN(EN), 
         .ADDR(ADDR), 
-        .in(in), 
-        .out(out)
+        .IN(IN), 
+        .OUT(OUT)
     );
 
     always #5 CLK = ~CLK;
@@ -24,7 +24,7 @@ module DataMemory_tb;
         RST = 1; // Start with reset active
         EN = 0;
         ADDR = 0;
-        in = 0;
+        IN = 0;
 
         // Wait for global reset
         #10;
@@ -33,14 +33,14 @@ module DataMemory_tb;
         RST = 1;
         
         // Display initial values
-        $display("Initial Values: CLK=%b, RST=%b, EN=%b, ADDR=%d, in=%d, out=%d", CLK, RST, EN, ADDR, in, out);
+        $display("Initial Values: CLK=%b, RST=%b, EN=%b, ADDR=%d, in=%d, out=%d", CLK, RST, EN, ADDR, IN, OUT);
 
         // Write operation
         EN = 1; // Enable write
         ADDR = 9'd123; // Set address
-        in = 16'sd456; // Set data to write
+        IN = 16'sd456; // Set data to write
         #10;
-        $display("After Write: ADDR=%d, in=%d, out=%d", ADDR, in, out);
+        $display("After Write: ADDR=%d, in=%d, out=%d", ADDR, IN, OUT);
 
         EN = 0; // Disable write
         #10;
@@ -48,7 +48,7 @@ module DataMemory_tb;
         // Read operation
         ADDR = 9'd123; // Set address to read
         #10;
-        $display("After Read: ADDR=%d, out=%d", ADDR, out);
+        $display("After Read: ADDR=%d, out=%d", ADDR, OUT);
 
         // Finish simulation
         $finish;
@@ -56,7 +56,7 @@ module DataMemory_tb;
 
     // Monitor changes
     always @(posedge CLK) begin
-        $display("Time = %t : CLK=%b, RST=%b, EN=%b, ADDR=%d, in=%d, out=%d", $time, CLK, RST, EN, ADDR, in, out);
+        $display("Time = %t : CLK=%b, RST=%b, EN=%b, ADDR=%d, in=%d, out=%d", $time, CLK, RST, EN, ADDR, IN, OUT);
     end
 
 endmodule
