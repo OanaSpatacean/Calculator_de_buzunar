@@ -1,16 +1,16 @@
 module ProgramCounter_tb;
-reg [15:0] in;
-reg CLK, RESET, w, BRA, STACK_POP, FACT;
-wire [15:0] out;
+reg [15:0] IN;
+reg CLK, RESET, EN, BRA, STACK_POP, FACT;
+wire [15:0] OUT;
 
-ProgramCounter instantaProgramCounter(.CLK(CLK), .RESET(RESET), .w(w), .BRA(BRA), .STACK_POP(STACK_POP), .FACT(FACT), .in(in), .out(out));
+ProgramCounter instantaProgramCounter(.CLK(CLK), .RESET(RESET), .EN(EN), .BRA(BRA), .STACK_POP(STACK_POP), .FACT(FACT), .IN(IN), .OUT(OUT));
 
 initial begin
-  w = 1'd0;
+  EN = 1'd0;
   BRA = 1'd0;
   STACK_POP = 1'd0;
   FACT = 1'd0;
-  in <= 16'b0110101010110011;
+  IN <= 16'b0110101010110011;
   
   ProgramCounter1;
   #5
@@ -35,10 +35,10 @@ task ProgramCounter1;
     CLK = 1'd0;
     RESET = 1'd0;
     #5
-    if (out == 16'b0000000000000000) 
+    if (OUT == 16'b0000000000000000) 
       $write("First test passed\n");
     else
-      $write("First test error: expected %b actual %b\n",16'b0000000000000000,out);  
+      $write("First test error: expected %b actual %b\n",16'b0000000000000000,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
@@ -48,10 +48,10 @@ task ProgramCounter2;
     #10 CLK = 1'd0;
     RESET = 1'd1;
     #5
-    if (out == 16'b0000000000000001) 
+    if (OUT == 16'b0000000000000001) 
       $write("Second test passed\n");
     else
-      $write("Second test error: expected %b actual %b\n",16'b0000000000000001,out);  
+      $write("Second test error: expected %b actual %b\n",16'b0000000000000001,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
@@ -62,10 +62,10 @@ task ProgramCounter3;
     RESET = 1'd1;
     BRA = 1'd1;
     #5
-    if (out == 16'b0000000000000010) 
+    if (OUT == 16'b0000000000000010) 
       $write("Third test passed\n");
     else
-      $write("Third test error: expected %b actual %b\n",16'b0000000000000010,out);  
+      $write("Third test error: expected %b actual %b\n",16'b0000000000000010,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
@@ -75,80 +75,80 @@ task ProgramCounter4;
     #10 CLK = 1'd0;
     RESET = 1'd1;
     BRA = 1'd1;
-    w = 1'd1;
+    EN = 1'd1;
     #5
-    if (out == 16'b0110101010110011) 
+    if (OUT == 16'b0110101010110011) 
       $write("Fourth test passed\n");
     else
-      $write("Fourth test error: expected %b actual %b\n",16'b0110101010110011,out);  
+      $write("Fourth test error: expected %b actual %b\n",16'b0110101010110011,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
 
 task ProgramCounter5;
   begin
-    in <= 16'b1000011110101011;
+    IN <= 16'b1000011110101011;
     #10 CLK = 1'd0;
     RESET = 1'd1;
     BRA = 1'd0;
     STACK_POP = 1'd1;
-    w = 1'd1;
+    EN = 1'd1;
     #5
-    if (out == 16'b1000011110101101) 
+    if (OUT == 16'b1000011110101101) 
       $write("Fifth test passed\n");
     else
-      $write("Fifth test error: expected %b actual %b\n",16'b1000011110101101,out);  
+      $write("Fifth test error: expected %b actual %b\n",16'b1000011110101101,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
 
 task ProgramCounter6;
   begin
-    in <= 16'b1000010000000000;
+    IN <= 16'b1000010000000000;
     #10 CLK = 1'd0;
     RESET = 1'd1;
     BRA = 1'd0;
     STACK_POP = 1'd0;
-    w = 1'd1;
+    EN = 1'd1;
     #5
-    if (out == 16'b1000011110101110) 
+    if (OUT == 16'b1000011110101110) 
       $write("Sixth test passed\n");
     else
-      $write("Sixth test error: expected %b actual %b\n",16'b1000011110101110,out);  
+      $write("Sixth test error: expected %b actual %b\n",16'b1000011110101110,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
 
 task ProgramCounter7;
   begin
-    in <= 16'b1000010000000000;
+    IN <= 16'b1000010000000000;
     #10 CLK = 1'd0;
     RESET = 1'd0;
     BRA = 1'd0;
     STACK_POP = 1'd0;
-    w = 1'd1;
+    EN = 1'd1;
     #5
-    if (out == 16'b0000000000000000) 
+    if (OUT == 16'b0000000000000000) 
       $write("Seventh test passed\n");
     else
-      $write("Seventh test error: expected %b actual %b\n",16'b0000000000000000,out);  
+      $write("Seventh test error: expected %b actual %b\n",16'b0000000000000000,OUT);  
     #10 CLK = 1'd1;
   end
 endtask
 
 task ProgramCounter8;
   begin
-    in <= 16'b1000010000000000;
+    IN <= 16'b1000010000000000;
     #10 CLK = 1'd0;
     RESET = 1'd1;
     BRA = 1'd0;
     STACK_POP = 1'd1;
-    w = 1'd0;
+    EN = 1'd0;
     #5
-    if (out == 16'b0000000000000001) 
+    if (OUT == 16'b0000000000000001) 
       $write("Eighth test passed\n");
     else
-      $write("Eighth test error: expected %b actual %b\n",16'b0000000000000001,out);  
+      $write("Eighth test error: expected %b actual %b\n",16'b0000000000000001,OUT);  
     #10 CLK = 1'd1;
   end
 endtask

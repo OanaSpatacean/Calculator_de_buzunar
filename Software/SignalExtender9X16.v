@@ -1,10 +1,10 @@
 module SignalExtender9x16( 
-  input [8:0] in, 
-  output reg [15:0] out 
+  input [8:0] IN, 
+  output reg [15:0] OUT 
 ); 
 
 always @* begin 
-  out <= { {7{in[8]}}, in[8:0] }; 
+  OUT <= { {7{IN[8]}}, IN[8:0] }; 
 end 
 
 endmodule 

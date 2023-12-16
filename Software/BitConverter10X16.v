@@ -1,11 +1,11 @@
 module BitConverter10x16( 
-  input [9:0] in, 
-  output reg [15:0] out 
+  input [9:0] IN, 
+  output reg [15:0] OUT 
 ); 
   
 always @* begin 
-   out = 16'b0; // Initialize with zeros 
-   out[15:0] = in; // Assign the input to the lower bits 
+   OUT = 16'b0; // Initialize with zeros 
+   OUT[15:0] = IN; // Assign the input to the lower bits 
 end 
 
 endmodule 

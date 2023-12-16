@@ -1,6 +1,6 @@
 module flags(
-  input CLK,RESET,w,
-  input [3:0] in,
+  input CLK,RESET,EN,
+  input [3:0] IN,
   output reg OVERFLOW,CARRY,NEGATIVE,ZERO
 );
 
@@ -17,12 +17,12 @@ end
 
 always @(*) 
 begin
-  if (w && CLK) 
+  if (EN && CLK) 
   begin
-      OVERFLOW <= in[0];
-      CARRY <= in[1];
-      NEGATIVE <= in[2];
-      ZERO <= in[3];     
+      OVERFLOW <= IN[0];
+      CARRY <= IN[1];
+      NEGATIVE <= IN[2];
+      ZERO <= IN[3];     
   end
 end
 
