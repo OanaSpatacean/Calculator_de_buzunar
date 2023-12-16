@@ -1,16 +1,16 @@
 module ProgramCounter(
-  input CLK,RESET,EN,BRA,STACK_POP,FACT,
+  input CLK,RST,EN,BRA,POP,FACT,
   input [15:0] IN,
   output reg [15:0] OUT
 );
 
-always @(negedge CLK, negedge RESET) 
+always @(negedge CLK, negedge RST) 
 begin
-  if (~RESET) 
+  if (~RST) 
   begin
     OUT <= 16'd0;
   end
-  else if (STACK_POP && EN) 
+  else if (POP && EN) 
   begin 
     OUT <= IN + 16'd2;
   end

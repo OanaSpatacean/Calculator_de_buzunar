@@ -1,4 +1,4 @@
-module CU(
+module ControlUnit(
   input [5:0] OPCODE,
   input REGISTER_ADDRESS, CLK, RST,
   input [1:0] REGISTER_ADDRESS_STACK,

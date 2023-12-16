@@ -1,12 +1,12 @@
 module flags(
-  input CLK,RESET,EN,
+  input CLK,RST,EN,
   input [3:0] IN,
   output reg OVERFLOW,CARRY,NEGATIVE,ZERO
 );
 
-always @(negedge RESET) 
+always @(negedge RST) 
 begin
-    if (~RESET) 
+    if (~RST) 
     begin
       OVERFLOW <= 0;  
       CARRY <= 0;

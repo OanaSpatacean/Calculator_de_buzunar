@@ -1,14 +1,14 @@
 module InstructionMemory(
-  input RESET,
-  input [9:0] ADRESS,
+  input RST,
+  input [9:0] ADDRESS,
   output reg [15:0] OUT
 );
 
 reg [15:0] ROM[1023:0];
 
-always @(negedge RESET) 
+always @(negedge RST) 
 begin
-  if (~RESET) 
+  if (~RST) 
   begin
     OUT <= ROM[0];   
   end
@@ -16,9 +16,9 @@ end
 
 always @(*) 
 begin
-  if (RESET) 
+  if (RST) 
   begin
-    OUT <= ROM[ADRESS];
+    OUT <= ROM[ADDRESS];
   end
 end
 

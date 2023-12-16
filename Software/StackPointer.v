@@ -1,4 +1,4 @@
-module SP(
+module StackPointer(
   input CLK,RST,INC,DEC,
   output reg [15:0] OUT);
   

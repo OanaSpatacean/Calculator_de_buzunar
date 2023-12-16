@@ -8,7 +8,7 @@ module X(
   //daca RST este activ, valoarea de ie?ire este resetata la zero
   //daca semnalul EN este activ, valoarea de iesire preia valoarea de intrare IN
      if (!RST) begin
-        out <= 16'd0;
+        OUT <= 16'd0;
      end   
    else if (EN) begin
         OUT <= IN;  

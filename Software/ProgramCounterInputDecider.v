@@ -1,5 +1,5 @@
 module ProgramCounterInputDecider(
-   input STACK_POP, BRA, 
+   input POP, BRA, 
    input [15:0] BRAInput,
    input [15:0] POPInput,
    output reg [15:0] ProgramCounterInput
@@ -7,7 +7,7 @@ module ProgramCounterInputDecider(
 
 always @(*) 
 begin
-    if (STACK_POP) 
+    if (POP) 
     begin
       ProgramCounterInput <= POPInput; 
     end
