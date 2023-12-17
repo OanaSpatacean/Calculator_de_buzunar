@@ -2,7 +2,13 @@ module CORE(
   input CLK, RST
 );
 
+wire ALU, BRA, COND_BRA, BRZ, BRN, BRC, BRO, LOAD, STORE, COPY, PUSH, POP, MOV, SEL_FLAG, SEL_ACC, SEL_X, SEL_Y, SEL_PC;
 wire [15:0] PC_VAL;
+wire signed [15:0] ACC_VAL;
+wire signed [15:0] X_VAL;
+wire signed [15:0] Y_VAL;
+wire [15:0] SP_VAL;
+
 wire [15:0] INSTR_FROM_MEMORY;
 wire [15:0] CURRENT_INSTR;
 wire [5:0] CURRENT_INSTR_OPCODE;
@@ -10,11 +16,6 @@ wire CURRENT_INSTR_REG_ADDR;
 wire [1:0] CURRENT_INSTR_REG_ADDRESS_STACK;
 wire [8:0] CURRENT_INSTR_IMM;
 wire [9:0] CURRENT_INSTR_BA;
-wire signed [15:0] ACC_VAL;
-wire signed [15:0] X_VAL;
-wire signed [15:0] Y_VAL;
-wire [15:0] SP_VAL;
-wire ALU, BRA, COND_BRA, BRZ, BRN, BRC, BRO, LOAD, STORE, COPY, PUSH, POP, MOV, SEL_FLAG, SEL_ACC, SEL_X, SEL_Y, SEL_PC;
 wire FACT;
 wire FACT_END;
 wire signed [15:0] ALU_RES;
@@ -35,7 +36,7 @@ Acumulator ACC(.IN(REG_INPUT),.CLK(CLK),.RST(RST),.EN(SEL_ACC & !STORE),.OUT(ACC
 X XRegister(.IN(REG_INPUT),.CLK(CLK),.RST(RST),.EN(SEL_X & !STORE),.OUT(X_VAL));
 Y YRegister(.IN(REG_INPUT),.CLK(CLK),.RST(RST),.EN(SEL_Y & !STORE),.OUT(Y_VAL));
 MUX_WRITE_REG WriteDeciderRegister(.ALU_INPUT(ALU_RES),.MOV_INPUT(Extended_IMMEDIATE),.DM_INPUT(DM_OUT),.ACC_COPY(ACC_VAL),.ALU(ALU),.MOV(MOV),.LOAD(LOAD),.COPY(COPY),.IN(REG_INPUT));
-//trebuie facut update in cod -> ArithmeticLogicUnit ALU(.ACC(ACC_VAL),.X(X_VAL),.Y(Y_VAL),.Immediate(Extended_IMMEDIATE),.fact_reg(factorialModule.fact_OUT),.fact_val({ {7{1'b0}}, factorialModule.current_iteration[8:0] }),.opcode(CURRENT_INSTR_OPCODE),.en(ALU),.CLK(CLK),.RST(RST),.RA(CURRENT_INSTR_REG_ADDR),.res(ALU_RES),.flags(ALU_FLAGS));
+ALU ArithmeticLogicUnit(.ACC(ACC_VAL),.X(X_VAL),.Y(Y_VAL),.IMMEDIATE(Extended_IMMEDIATE),.fact_reg(factorialModule.fact_OUT),.fact_val({ {7{1'b0}}, factorialModule.current_iteration[8:0] }),.OPCODE(CURRENT_INSTR_OPCODE),.EN(ALU),.CLK(CLK),.RST(RST),.REGISTER_ADDRESS(CURRENT_INSTR_REG_ADDR),.res(ALU_RES),.flags(ALU_FLAGS));
 flags FlagsRegister(.IN(ALU_FLAGS),.CLK(CLK),.RST(RST),.ED(SEL_FLAG),.ZERO(ZERO_FLAG),.NEGATIVE(NEGATIVE_FLAG),.CARRY(CARRY_FLAG),.OVERFLOW(OVERFLOW_FLAG));
 SignalExtender9x16 ImmediateExtender(.IN(CURRENT_INSTR_IMM),.OUT(Extended_IMMEDIATE));
 REG_MUX_DM_INPUT DataMemoryInputDecider(.X(X_VAL),.Y(Y_VAL),.ACC(ACC_VAL),.PC(PC_VAL),.SEL_X(SEL_X),.SEL_Y(SEL_Y),.SEL_ACC(SEL_ACC),.SEL_PC(SEL_PC),.STORE(STORE),.IN(DM_INPUT));
