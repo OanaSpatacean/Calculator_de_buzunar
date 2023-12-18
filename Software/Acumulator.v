@@ -1,4 +1,4 @@
-module ACC(
+module Acumulator(
   input CLK,RESET,EN,
   input [15:0] IN,
   output reg [15:0] OUT

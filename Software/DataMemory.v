@@ -19,7 +19,7 @@ end
 
 always @(negedge CLK) begin // la fiecare tranzitie negativa a semnalului de CLK
   if (EN) begin //daca semnalul w este 1, datele de intrare in sunt scrise in memorie la adresa specificata de ADDR
-    RAM[ADDR] <= IN
+    RAM[ADDR] <= IN;
  end
 end
 

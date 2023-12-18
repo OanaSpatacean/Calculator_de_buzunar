@@ -1,21 +1,21 @@
 module InstructionRegister(
-  input CLK,RESET,EN,
+  input CLK,RST,EN,
   input [15:0] IN,
   output reg [15:0] OUT,
   output reg [5:0] OPCODE,
-  output reg REGISTER_ADRESS,
-  output reg [1:0] REGISTER_ADRESS_STACK,
+  output reg REGISTER_ADDRESS,
+  output reg [1:0] REGISTER_ADDRESS_STACK,
   output reg [8:0] IMMEDIATE,
   output reg [9:0] BA
 );
 
-always @(posedge CLK, negedge RESET) 
+always @(posedge CLK, negedge RST) 
  begin
-    if (!RESET) 
+    if (!RST) 
     begin
       OUT <= 16'd0;
-      REGISTER_ADRESS <= 1'd0;
-      REGISTER_ADRESS_STACK <= 2'd0;
+      REGISTER_ADDRESS <= 1'd0;
+      REGISTER_ADDRESS_STACK <= 2'd0;
       IMMEDIATE <= 9'd0;
       BA <= 10'd0;
   end
@@ -23,8 +23,8 @@ always @(posedge CLK, negedge RESET)
     begin
       OUT <= IN;
       OPCODE <= IN[15:10];
-      REGISTER_ADRESS <= IN[9];
-      REGISTER_ADRESS_STACK <= IN[9:8];
+      REGISTER_ADDRESS <= IN[9];
+      REGISTER_ADDRESS_STACK <= IN[9:8];
       IMMEDIATE <= IN[8:0];
       BA <= IN[9:0];
     end
