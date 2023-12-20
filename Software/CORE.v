@@ -45,6 +45,5 @@ StackPointer SP(.CLK(CLK),.RST(RST),.INC(POP),.DEC(PUSH),.OUT(SP_VAL));
 REG_MUX_DM_ADDR DataMemoryAddressDecider(.IMMEDIATE(CURRENT_INSTR_IMM),.SP(SP_VAL[8:0]),.LOAD(LOAD),.STORE(STORE),.PUSH(PUSH),.POP(POP),.IN(DM_ADDRESS));
 BitConverter10x16 BranchAddressExtender(.IN(CURRENT_INSTR_BA),.OUT(Extended_BRANCH_ADDRESS));
 ProgramCounterInputDecider PCInputDecider(.POPInput(REG_INPUT),.BRAInput(Extended_BRANCH_ADDRESS),.POP(POP),.BRA(BRA),.ProgramCounterInput(PC_INPUT)); 
-FACTORIAL factorialModule(.VAL(CURRENT_INSTR_IMM), .CLK(CLK), .RST(RST), .ALU(ALU_RES), .FACT(FACT), .FACT_END(FACT_END));
 
 endmodule
