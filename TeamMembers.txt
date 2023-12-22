@@ -2,4 +2,4 @@ Project Manager: Spatacean Oana- Teodora
 Hardware Design: Stanescu Ariana- Camelia, Tarod Anamaria- Alexandra
 Software Design: Oxani Corina
 Testare: Talapan Alexandra
-
+Repository link pe Github: https://github.com/OanaSpatacean/Calculator_de_buzunar
