@@ -962,6 +962,36 @@ module ALU(
           flags[0] = 1'd0;
     end
       
+        
+    6'b011000: begin
+          sign_before_operation = fact_reg[15];
+          value_before_operation = fact_reg;
+            if (fact_reg[15] == fact_val[15])
+              same_sign = 1'd1;
+            else
+              same_sign = 1'd0;
+            if (fact_val == 16'd0)
+              res = fact_reg;
+            else
+              res = fact_reg * fact_val;
+             if (same_sign == 1'd1 && sign_before_operation != res[15]) /* overflow */
+              flags[0] = 1'd1;
+            else
+              flags[0] = 1'd0; 
+            if (res < value_before_operation) // carry
+              flags[1] = 1'd1;
+            else
+              flags[1] = 1'd0;
+            if  (res ==  16'd0) //  zero
+              flags[3] = 1'd1;
+          else 
+              flags[3] = 1'd0;
+            if (res[15] == 1'd1) /* negative */
+              flags[2] = 1'd1;
+          else
+              flags[2] = 1'd0;
+    end  
+      
      endcase
       
     end
